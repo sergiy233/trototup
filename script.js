@@ -1,37 +1,57 @@
 const stick = document.getElementById('pink-stick');
 const farmer = document.getElementById('farmer');
 const milkZone = document.getElementById('milk-zone');
+const milkCountEl = document.getElementById('milk-count');
+
+// Змінна лічильника
+let currentCount = 0;
+
+// Функція для створення кульки
+function createSideBall(side) {
+    const ball = document.createElement('div');
+    ball.classList.add('side-ball', side);
+    // Додаємо кульку в контейнер фермера, щоб вона рухалась разом з ним
+    document.querySelector('.farmer-container').appendChild(ball);
+    
+    // Видаляємо кульку після анімації
+    setTimeout(() => {
+        ball.remove();
+    }, 500);
+}
 
 stick.addEventListener('click', () => {
     // 1. Створюємо краплю молока
     const drop = document.createElement('div');
     drop.classList.add('milk-drop');
-    
-    // Рандомне відхилення, щоб бризки були реалістичнішими
     const randomOffset = (Math.random() - 0.5) * 40;
     drop.style.marginLeft = randomOffset + 'px';
-    
     milkZone.appendChild(drop);
 
     // 2. Логіка попадання в обличчя
-    // Вичікуємо 300мс (поки анімація долетить)
     setTimeout(() => {
         const face = farmer.querySelector('.face');
         
-        // Міняємо емодзі на "заляпане"
+        // --- НОВЕ: Оновлюємо лічильник ---
+        currentCount++;
+        milkCountEl.innerText = currentCount;
+
+        // --- НОВЕ: Створюємо дві кульки по бокам ---
+        createSideBall('left');
+        createSideBall('right');
+
+        // Ефект попадання (емодзі і рух)
         face.innerText = '😵';
-        farmer.style.transform = 'translateX(-50%) scale(1.4) rotate(5deg)';
+        document.querySelector('.farmer-container').style.transform = 'translateX(-50%) scale(1.4) rotate(5deg)';
         
-        // Через деякий час повертаємо як було
+        // Повертаємо як було
         setTimeout(() => {
             face.innerText = '👨‍🌾';
-            farmer.style.transform = 'translateX(-50%) scale(1) rotate(0deg)';
+            document.querySelector('.farmer-container').style.transform = 'translateX(-50%) scale(1) rotate(0deg)';
         }, 300);
     }, 300);
 
-    // 3. Видаляємо елемент з DOM після анімації
+    // 3. Видаляємо елемент молока
     setTimeout(() => {
         drop.remove();
     }, 450);
 });
-
