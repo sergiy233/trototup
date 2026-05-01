@@ -3,14 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Фермер та Рожева Паличка</title>
+    <title>Фермер Влад - Гра</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="farm-scene">
-        <div id="farmer" class="farmer">
-            <div class="face">👨‍🌾</div>
+        
+        <div class="counter-container">
+            Доїння: <span id="milk-count">0</span>
+        </div>
+
+        <div class="farmer-container">
+            <div id="farmer" class="farmer">
+                <div class="face">👨‍🌾</div>
+                <div class="fork">🍴</div>
+            </div>
+            <div class="farmer-name">Влад</div>
         </div>
 
         <div id="milk-zone"></div>
@@ -23,3 +32,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
